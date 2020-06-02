@@ -7,6 +7,9 @@ class MiReproductor{
 	private MidiChannel [] channels;
 	private MidiChannel channel;
 
+	private Instrument[] instrumentos;
+
+
 
 	public MiReproductor(){
 		try{
@@ -22,6 +25,15 @@ class MiReproductor{
 			synthe.open();
 			channels = synthe.getChannels();
 
+			instrumentos = synthe.getLoadedInstruments();
+
+
+			for(Instrument i : instrumentos)
+				System.out.println(i); //0, 40
+
+
+
+
 		}catch(Exception e){
 			System.out.println("Error: al inizializar el synthe.");
 		}
@@ -31,6 +43,7 @@ class MiReproductor{
 	public void reproducirNota(int nota, int canal, int duracion){
 		
 		channel = channels[canal];
+		channel.programChange(0,123);
 		channel.noteOn(nota, intensity);
 
 		try{
